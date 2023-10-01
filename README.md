@@ -1,4 +1,4 @@
-# Proyecto de React - Acceso de Vehículos
+# Parcial 1 - Programacion con tecnologias web
 
 Este proyecto permite a los usuarios acceder con una cuenta y ver detalles de diferentes modelos de autos.
 
@@ -40,7 +40,7 @@ El proyecto utiliza `React` junto con `React Router` para la navegación entre p
 
 ### Datos:
 
-Los datos se extraen de una API externa en formato JSON.
+Los datos se extraen de una API externa en formato JSON que se encuentra en el repositorio con el nombre datos.json.
 
 ## Proceso de desarrollo:
 
