@@ -1,38 +1,59 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-function Home()
-{
-const [datos, setDatos] = useState([]);
-const url = 'https://raw.githubusercontent.com/aromerob1/parcial1_web/master/datos.json';
-fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();  
-    })
-    .then(data => {
-        console.log(data);
-        setDatos = data;
-    })
-    .catch(error => {
-        console.log('Hubo un problema con la petición Fetch:', error.message);
-    });
+import React, { useState, useEffect } from 'react';
+import CardComponent from './CardComponent';
+import { Container, Row, Col } from 'react-bootstrap';
+import Detail from './Detail';
 
-    return(
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>{datos[0]}</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-    );
+
+function Home() {
+  const [data, setData] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/aromerob1/parcial1_web/master/datos.json');
+
+        if (!response.ok) {
+          throw new Error('Error');
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  const handleCardClick = (item) => {
+    setSelectedItem(item);
+  };
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  return (
+    <Container>
+      <Row>
+        {data.map((item, index) => (
+          <Col md={4} key={index} className='d-flex justify-content-center'>
+            <CardComponent item={item} onClick={() => handleCardClick(item)}/>
+          </Col>
+        ))}
+      </Row>
+      {selectedItem && <Detail item={selectedItem} />}
+    </Container>
+  );
 }
 
 export default Home;

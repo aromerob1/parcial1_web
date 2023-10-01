@@ -5,10 +5,21 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {IntlProvider} from 'react-intl';
+import localeEsMessages from "./locales/es";
+import localeEnMessages from "./locales/en"; // Asegúrate de importar los mensajes en inglés
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// Detecta el idioma del navegador (esto es solo un ejemplo, puedes establecer el idioma de diferentes maneras)
+const browserLanguage = navigator.language.split(/[-_]/)[0]; // 'en' o 'es', etc.
+
+// Selecciona los mensajes basados en el idioma
+const messages = browserLanguage === 'es' ? localeEsMessages : localeEnMessages;
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <App />
+    <IntlProvider locale={browserLanguage} messages={messages}>
+        <App/>
+    </IntlProvider>
 );
 
 // If you want your app to work offline and load faster, you can change

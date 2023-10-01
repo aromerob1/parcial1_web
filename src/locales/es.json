@@ -1,0 +1,11 @@
+{
+  "acceder": "Acceder",
+  "usarCuenta": "Usa tu cuenta de UniAlpes",
+  "correo" : "Correo electrónico",
+  "invalidEmail" : "Dirección de correo inválida.",
+  "olvidasteCorreo" : "¿Olvidaste el correo electrónico?",
+  "crearCuenta" : "Crear cuenta",
+  "siguiente" : "Siguiente",
+  "contrasena" : "Ingresa tu contraseña",
+  "mostrarContrasena" : "Mostrar contraseña"
+}
